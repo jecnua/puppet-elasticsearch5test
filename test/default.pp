@@ -1,1 +1,1 @@
-class {'::elasticsearch':}
+class {'::elasticsearch5':}

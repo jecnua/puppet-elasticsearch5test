@@ -1,17 +1,29 @@
 ---
 
+# driver:
+#   name: docker
+#   use_sudo: false
+#
+# platforms:
+# - name: ubuntu
+#   driver_config:
+#     use_cache: true
+#     provision_command:
+#     - apt-get install --assume-yes net-tools nano vim telnet htop
+#   run_list:
+#   - recipe[apt]
+
+# Using vagrant to fix systemd on docker
 driver:
-  name: docker
-  use_sudo: false
+  name: vagrant
+  communicator: ssh
+  vm_hostname: false
+  provision: true
+  vagrantfiles:
+    - Vagrantfile.rb
 
 platforms:
-- name: ubuntu
-  driver_config:
-    use_cache: true
-    provision_command:
-    - apt-get install --assume-yes net-tools nano vim telnet htop
-  run_list:
-  - recipe[apt]
+  - name: ubuntu-16.04
 
 provisioner:
   name: puppet_apply

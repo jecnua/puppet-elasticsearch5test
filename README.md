@@ -1,6 +1,7 @@
-# Module
+# Testing es5 with puppet
 
-TBD
+This is a quick test to check how the new puppet module for es works.
+It installs *java* by itself.
 
 ## Testing
 

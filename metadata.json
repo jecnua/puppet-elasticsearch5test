@@ -1,5 +1,5 @@
 {
-  "name": "fabtest-elasticsearch",
+  "name": "fabtest-elasticsearch5",
   "version": "0.1.0",
   "author": "fabtest",
   "summary": "A module",
@@ -12,4 +12,3 @@
   ],
   "data_provider": null
 }
-
