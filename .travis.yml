@@ -1,0 +1,37 @@
+---
+sudo: false
+language: ruby
+cache:
+  bundler: true
+services:
+- docker
+install:
+- bundle install #You need this to install the dependencies in the gemfile
+rvm:
+  - 2.3.1
+script:
+  - puppet-lint --no-autoloader_layout-check manifests/*.pp
+  - puppet-lint --no-autoloader_layout-check test/*.pp
+  - rake check:dot_underscore
+  - rake check:git_ignore
+  - rake check:symlinks
+  - rake check:test_file
+  - rake rubocop
+  - rake validate
+  - rake metadata_lint
+
+branches:
+  only:
+    - master # Sensible default
+notifications:
+  email:
+    on_success: change # default: change
+    on_failure: always # default: always
+  # hipchat:
+  #   rooms:
+  #     - <token>@<token>
+  #   template:
+  #     - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message} Details: %{build_url} Change view: %{compare_url}'
+  #   on_success: change # default: change
+  #   on_failure: always # default: always
+  ## Before using the hipchat options get a token and choose a room

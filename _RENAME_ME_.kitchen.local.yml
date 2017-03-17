@@ -1,0 +1,12 @@
+---
+
+driver:
+  name: vagrant
+  communicator: ssh
+  vm_hostname: false
+  provision: true
+  vagrantfiles:
+    - Vagrantfile.rb
+
+platforms:
+  - name: ubuntu-14.04

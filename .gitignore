@@ -1,0 +1,39 @@
+# Test kitchen and puppet
+.kitchen/
+.kitchen.local.yml
+__.kitchen.local.yml # For when you need to use the full suite
+.tmp/
+.librarian
+.bundle/
+.rspec_system/
+.*.sw?
+.vagrant
+.idea
+spec/*
+pkg/
+modules/
+vendor/
+__utilities/ # Personal scripts
+test/reports/*
+Gemfile.lock
+Puppetfile.lock
+chefignore
+
+# Temporary file
+Dockerfile*
+
+# MAC OS
+**/.DS_store
+
+# TEXTMATE
+*.tmproj
+tmtags
+
+# EMACS
+*~
+\#*
+.\#*
+
+# VIM
+*.swp
+tags

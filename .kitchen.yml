@@ -1,0 +1,37 @@
+---
+
+driver:
+  name: docker
+  use_sudo: false
+
+platforms:
+- name: ubuntu
+  driver_config:
+    use_cache: true
+    provision_command:
+    - apt-get install --assume-yes net-tools nano vim telnet htop
+  run_list:
+  - recipe[apt]
+
+provisioner:
+  name: puppet_apply
+  manifests_path: test
+  files_path: files
+  modules_path: modules
+  puppet_verbose: true
+  puppet_debug: false
+  require_puppet_collections: true
+  require_chef_for_busser: false
+
+verifier:
+  name: shell
+
+suites:
+  - name: default
+    provisioner:
+      manifest: default.pp
+    verifier:
+      command: |
+        export NOW=$(date +"%Y_%m_%d_%H_%M_%S") # Get a timestamp for report name
+        export NEW_ENV_VAR='1.0.0'              # Example of exporting vars to serverspec
+        rspec -c -f d -I test/integration/default/serverspec/ test/integration/default/serverspec/default/*_spec.rb  --format documentation --format html --out test/reports/${NOW}_default.html
