@@ -28,6 +28,8 @@ class elasticsearch5 {
     ensure => installed,
   }->
   class { 'elasticsearch':
+    # package_pin => true,
+    version           => '5.5.1',
     java_install      => true,
     manage_repo       => true,
     repo_version      => '5.x',
@@ -49,13 +51,12 @@ class elasticsearch5 {
   }->
   elasticsearch::plugin { 'repository-s3':
     instances => $node_name
+  }->
+  elasticsearch::plugin { 'x-pack':
+    instances => $node_name
+  }->
+  elasticsearch::plugin { 'elasticsearch-prometheus-exporter':
+    instances => $node_name,
+    url       => 'https://github.com/vvanholl/elasticsearch-prometheus-exporter/releases/download/5.2.1.0/elasticsearch-prometheus-exporter-5.2.1.0.zip',
   }
-  # ->
-  # elasticsearch::plugin { 'x-pack':
-  #   instances => $node_name
-  # }->
-  # elasticsearch::plugin { 'vvanholl/elasticsearch-prometheus-exporter':
-  #   instances => $node_name,
-  #   url       => 'https://github.com/vvanholl/elasticsearch-prometheus-exporter/releases/download/5.2.1.0/elasticsearch-prometheus-exporter-5.2.1.0.zip',
-  # }
 }

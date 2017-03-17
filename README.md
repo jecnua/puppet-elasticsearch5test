@@ -3,6 +3,11 @@
 This is a quick test to check how the new puppet module for es works.
 It installs *java* by itself.
 
+*NOTES*:
+
+- Installing or removing a plugin later doesn't seem to works
+- Reverting the version doesn't seem to work
+
 ## Testing
 
 Test kitchen works in two steps: first you need to _converge_
