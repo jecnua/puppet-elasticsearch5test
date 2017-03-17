@@ -1,14 +1,43 @@
 #
 class elasticsearch5 {
 
+  $node_name='es-01'
+
+  $config_hash = {
+    'action.destructive_requires_name' => true,
+  }
+
   package { 'apt-transport-https':
     ensure => installed,
   }->
   class { 'elasticsearch':
-    java_install => true,
-    manage_repo  => true,
-    repo_version => '5.x',
+    java_install      => true,
+    manage_repo       => true,
+    repo_version      => '5.x',
+    restart_on_change => true, # Without this installing plugins later does nothing
+    jvm_options       => [
+      '-Xms1g',
+      '-Xmx1g'
+    ] # This finishes in /etc/elasticsearch/jvm.options
   }->
-  elasticsearch::instance { 'es-01': }
+  elasticsearch::instance { $node_name:
+    config        => $config_hash,
+    init_defaults => { }, # Init defaults hash
+    datadir       => [ ], # Data directory
+  }
 
+  # Added plugins
+  elasticsearch::plugin { 'discovery-ec2':
+    instances => $node_name
+  }->
+  elasticsearch::plugin { 'repository-s3':
+    instances => $node_name
+  }->
+  elasticsearch::plugin { 'x-pack':
+    instances => $node_name
+  }->
+  elasticsearch::plugin { 'vvanholl/elasticsearch-prometheus-exporter':
+    instances => $node_name,
+    url       => 'https://github.com/vvanholl/elasticsearch-prometheus-exporter/releases/download/5.2.1.0/elasticsearch-prometheus-exporter-5.2.1.0.zip',
+  }
 }
