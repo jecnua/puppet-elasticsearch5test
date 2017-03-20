@@ -5,6 +5,9 @@ class elasticsearch5 (
   $node_name = $::fqdn,
   $xms = '2g',
   $xmx = '2g',
+  $discovery_ec2_groups = undef,
+  $discovery_ec2_tag_cluster = undef,
+  $discovery_ec2_tag_env = undef,
   ){
 
   $config_hash = {
@@ -25,6 +28,15 @@ class elasticsearch5 (
     'xpack.monitoring.enabled' => true,
     'xpack.security.enabled' => false,
     'xpack.watcher.enabled' => false,
+    #### AWS only options
+    'cloud.aws.region' => 'us-east-1',
+    # https://www.elastic.co/guide/en/elasticsearch/plugins/5.0/discovery-ec2-discovery.html
+    'cloud.node.auto_attributes' =>  true,
+    'cluster.routing.allocation.awareness.attributes' => 'aws_availability_zone',
+    'discovery.zen.hosts_provider' =>  'ec2',
+    'discovery.ec2.groups' => $discovery_ec2_groups,
+    'discovery.ec2.tag.cluster' => $discovery_ec2_tag_cluster,
+    'discovery.ec2.tag.env' => $discovery_ec2_tag_env,
   }
 
   package { 'apt-transport-https':
