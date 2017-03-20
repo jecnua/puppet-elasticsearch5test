@@ -1,0 +1,8 @@
+grant {
+  // Silence the WARN caused by the aws ec2 plugin
+  // https://github.com/elastic/elasticsearch/issues/17318
+  permission javax.management.MBeanServerPermission "createMBeanServer";
+  permission javax.management.MBeanServerPermission "findMBeanServer";
+  permission javax.management.MBeanPermission "com.amazonaws.metrics.*", "*";
+  permission javax.management.MBeanTrustPermission "register";
+};
