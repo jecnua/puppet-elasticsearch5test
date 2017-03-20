@@ -4,10 +4,13 @@
 This is a quick test to check how the new puppet module for es works.
 It installs *java* by itself.
 
-*NOTES*:
+*NOTES* on the module WE ARE USING (not us):
 
 - Installing or removing a plugin later doesn't seem to works
 - Reverting the version doesn't seem to work
+- JAVA ERROR
+
+    Error: Could not retrieve catalog from remote server: Error 400 on SERVER: unsupported release xenial at /etc/puppet/environments/development/modules/java/manifests/params.pp:49 on node xxx
 
 NO PARAMS (just pass them to init)
 
