@@ -1,18 +1,18 @@
 #
 class elasticsearch5 (
+  $cluster_name = 'es5p-test',
   $node_data = true,
   $node_master = true,
   $node_name = $::fqdn,
   $xms = '2g',
   $xmx = '2g',
-  $discovery_ec2_groups = undef,
-  $discovery_ec2_tag_cluster = undef,
-  $discovery_ec2_tag_env = undef,
+  $sg_mark_cluster = undef,
+  $autodiscovery_tag_cluster = undef,
+  $autodiscovery_tag_env = undef,
   ){
-
   $config_hash = {
     'action.destructive_requires_name' => true,
-    'cluster.name' => 'es5p-test',
+    'cluster.name' => $cluster_name,
     'discovery.zen.minimum_master_nodes' => '1',
     'http.compression' => true,
     'indices.queries.cache.size' => '30%',
@@ -34,9 +34,9 @@ class elasticsearch5 (
     'cloud.node.auto_attributes' =>  true,
     'cluster.routing.allocation.awareness.attributes' => 'aws_availability_zone',
     'discovery.zen.hosts_provider' =>  'ec2',
-    'discovery.ec2.groups' => $discovery_ec2_groups,
-    'discovery.ec2.tag.cluster' => $discovery_ec2_tag_cluster,
-    'discovery.ec2.tag.env' => $discovery_ec2_tag_env,
+    'discovery.ec2.groups' => $sg_mark_cluster,
+    'discovery.ec2.tag.cluster' => $autodiscovery_tag_cluster,
+    'discovery.ec2.tag.env' => $autodiscovery_tag_env,
   }
 
   package { 'apt-transport-https':
