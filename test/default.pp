@@ -1,1 +1,3 @@
-class {'::elasticsearch5':}
+class {'::elasticsearch5':
+  node_name => 'test'
+}

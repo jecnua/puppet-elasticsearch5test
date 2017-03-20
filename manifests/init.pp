@@ -1,11 +1,12 @@
 #
-class elasticsearch5 {
+class elasticsearch5 (
+  $node_data = true,
+  $node_master = true,
+  $node_name = $::fqdn,
+  $xms = '2g',
+  $xmx = '2g',
+  ){
 
-  $node_data = true
-  $node_master = true
-  $node_name = 'es-01'
-  $xms = '2g'
-  $xmx = '2g'
   $config_hash = {
     'action.destructive_requires_name' => true,
     'cluster.name' => 'es5p-test',
@@ -45,7 +46,7 @@ class elasticsearch5 {
     # init_defaults => { }, # Init defaults hash
     # datadir       => [ ], # Data directory
   }->
-  file { '/etc/elasticsearch/es-01/es_java.policy':
+  file { "/etc/elasticsearch/${node_name}/es_java.policy":
     ensure => file,
     mode   => '0644',
     owner  => 'elasticsearch',

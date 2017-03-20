@@ -1,4 +1,5 @@
 # Testing es5 with puppet
+## -- THIS WILL NOT BE MAINTAINED AND IS JUST A TEST --
 
 This is a quick test to check how the new puppet module for es works.
 It installs *java* by itself.
@@ -7,6 +8,10 @@ It installs *java* by itself.
 
 - Installing or removing a plugin later doesn't seem to works
 - Reverting the version doesn't seem to work
+
+NO PARAMS (just pass them to init)
+
+A LOT IS HARDCODED
 
 ## Testing
 
