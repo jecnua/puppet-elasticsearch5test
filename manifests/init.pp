@@ -9,6 +9,7 @@ class elasticsearch5 (
   $sg_mark_cluster = undef,
   $autodiscovery_tag_cluster = undef,
   $autodiscovery_tag_env = undef,
+  $java_install = false,
   ){
   $config_hash = {
     'action.destructive_requires_name' => true,
@@ -44,7 +45,7 @@ class elasticsearch5 (
   }->
   class { 'elasticsearch':
     # version           => '5.2.1',
-    java_install      => true,
+    java_install      => $java_install,
     manage_repo       => true,
     repo_version      => '5.x',
     restart_on_change => true, # Without this installing plugins later does nothing

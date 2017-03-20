@@ -1,3 +1,4 @@
 class {'::elasticsearch5':
-  node_name => 'test'
+  node_name    => 'test',
+  java_install => true,
 }
